@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Rabbit</title>
+    <style>
+      body {
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .btn {
+        height: 50px;
+        width: 50%;
+        cursor: pointer;
+        background-color: lightcoral;
+        color: white;
+        font-size: 24px;
+        border-radius: 15px;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn">Find Rabbit</button>
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/rabbit.png" alt="rabbit" class="rabbit" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+    <img src="/find-rabbit/carrot.png" alt="carrot" class="carrot" />
+
+    <script>
+      const rabbit = document.querySelector('.rabbit');
+      const button = document.querySelector('.btn');
+
+      // when clicked, window will scroll to where the rabbit is.
+      button.addEventListener('click', () => {
+        const y = rabbit.getBoundingClientRect().top;
+        rabbit.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    </script>
+  </body>
+</html>
