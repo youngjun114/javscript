@@ -24,25 +24,19 @@ function onAdd() {
   input.focus();
 }
 
+let id = 0;
 function createItem(text) {
   const itemRow = document.createElement('li');
-  const item = document.createElement('div');
-  const name = document.createElement('span');
-  const btn = document.createElement('button');
   itemRow.setAttribute('class', 'item-row');
-  item.setAttribute('class', 'item');
-  name.setAttribute('class', 'item-name');
-  name.textContent = text;
-  btn.setAttribute('class', 'btn-remove');
-  btn.innerHTML = '<i class="material-icons remove-icon">delete</i>';
-  btn.addEventListener('click', () => {
-    items.removeChild(itemRow);
-  });
-
-  item.appendChild(name);
-  item.appendChild(btn);
-
-  itemRow.appendChild(item);
+  itemRow.setAttribute('data-id', id);
+  itemRow.innerHTML = `
+    <div class="item" >
+        <span class="item-name">${text}</span>
+        <button class="btn-remove" >
+            <i class="material-icons remove-icon" data-id=${id}>delete</i>
+        </button>
+    </div>`;
+  id++;
   return itemRow;
 }
 
@@ -53,5 +47,14 @@ add.addEventListener('click', () => {
 input.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     onAdd();
+  }
+});
+
+// Event Delegation
+items.addEventListener('click', (event) => {
+  const id = event.target.dataset.id;
+  if (id) {
+    const toBeDelete = document.querySelector(`.item-row[data-id="${id}"]`);
+    toBeDelete.remove();
   }
 });
