@@ -1,0 +1,125 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+}
+
+body {
+  text-align: center;
+  background-color: black;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  background: url(/img/background.png) center/cover;
+  border-radius: 20px;
+  width: 800px;
+  height: 500px;
+  margin: auto;
+  background-repeat: no-repeat;
+}
+
+.game_header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.game_field {
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+  position: relative;
+}
+
+.game_btn {
+  width: 60px;
+  height: 60px;
+  background-color: wheat;
+  border: 4px solid black;
+  font-size: 20px;
+  transition: transform 300ms ease-in;
+}
+
+.game_btn:hover {
+  transform: scale(1.2);
+}
+
+.game_timer {
+  width: 100px;
+  background-color: white;
+  text-align: center;
+  border: 5px solid black;
+  margin-top: 8px;
+  font-size: 32px;
+  border-radius: 20px;
+  visibility: hidden;
+  user-select: none;
+  cursor: auto;
+}
+
+.game_score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin-top: 8px;
+  font-size: 36px;
+  background-color: darksalmon;
+  border-radius: 50%;
+  color: white;
+  border: 3px solid black;
+  visibility: hidden;
+  user-select: none;
+  cursor: auto;
+}
+
+.pop-up {
+  width: 400px;
+  height: 140px;
+  padding: 20px;
+  background-color: #00000090;
+  color: white;
+  text-align: center;
+  margin: auto;
+  transform: translateY(-150%);
+  border-radius: 20px;
+}
+
+.pop-up_refresh {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  background-color: wheat;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+.pop-up_message {
+  display: block;
+  font-size: 38px;
+}
+
+.hide {
+  display: none;
+}
+
+.carrot,
+.bug {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 100ms ease-in;
+}
+
+.carrot:hover,
+.bug:hover {
+  transform: scale(1.1);
+}
