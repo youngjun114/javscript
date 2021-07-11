@@ -1,23 +1,59 @@
 'use strict';
 import * as sound from './sound.js';
-import Field from './field.js';
+import { Field, ItemType } from './field.js';
 
-export default class Game {
+// Guarantees type of reason
+export const Reason = Object.freeze({
+  win: 'win',
+  lose: 'lose',
+  cancel: 'cancel',
+});
+
+// Builder Pattern
+export class GameBuilder {
+  withGameDuration(duration) {
+    this.gameDuration = duration;
+    return this;
+  }
+
+  withCarrotCount(num) {
+    this.carrotCount = num;
+    return this;
+  }
+
+  withBugCount(num) {
+    this.bugCount = num;
+    return this;
+  }
+
+  build() {
+    return new Game(
+      this.gameDuration, //
+      this.carrotCount,
+      this.bugCount
+    );
+  }
+}
+class Game {
   constructor(gameDuration, carrotCount, bugCount) {
     this.gameDuration = gameDuration;
     this.carrotCount = carrotCount;
     this.bugCount = bugCount;
-
+    this.mode = null;
     this.gameTimer = document.querySelector('.game_timer');
     this.gameScore = document.querySelector('.game_score');
     this.gameBtn = document.querySelector('.game_btn');
+    this.gameHeader = document.querySelector('.game_header');
+
     this.gameBtn.addEventListener('click', () => {
       if (this.started) {
-        this.stop();
+        this.stop(Reason.cancel);
       } else {
         this.start();
       }
     });
+
+    this.gameHeader.addEventListener('click', this.onClick);
 
     this.gameField = new Field(carrotCount, bugCount);
     this.gameField.setClickListner(this.onItemClick);
@@ -31,14 +67,14 @@ export default class Game {
     if (!this.started) {
       return;
     }
-    if (item === 'carrot') {
+    if (item === ItemType.carrot) {
       this.score++;
       this.updateScore();
       if (this.score === this.carrotCount) {
-        this.finish(true);
+        this.stop(Reason.win);
       }
-    } else if (item === 'bug') {
-      this.finish(false);
+    } else if (item === ItemType.bug) {
+      this.stop(Reason.lose);
     }
   };
 
@@ -61,27 +97,13 @@ export default class Game {
     this.gameField.init();
   }
 
-  stop() {
+  stop(reason) {
     this.started = false;
     this.stopTimer();
     this.hideGameButton();
-    this.started = !this.started;
     sound.stopBackground();
-    sound.playAlert();
-    this.onGameStop && this.onGameStop('cancel');
-  }
 
-  finish(win) {
-    this.started = false;
-    this.hideGameButton();
-    if (win) {
-      sound.playWin();
-    } else {
-      sound.playBug();
-    }
-    this.stopTimer();
-    sound.stopBackground();
-    this.onGameStop && this.onGameStop(win ? 'win' : 'lose');
+    this.onGameStop && this.onGameStop(reason);
   }
 
   startTimer() {
@@ -90,7 +112,7 @@ export default class Game {
     this.timer = setInterval(() => {
       if (remainingTimeSec <= 0) {
         clearInterval(this.timer);
-        this.finish(this.carrotCount === this.score);
+        this.stop(this.carrotCount === this.score ? Reason.win : Reason.lose);
         return;
       }
       this.updateTimerText(--remainingTimeSec);
@@ -126,4 +148,13 @@ export default class Game {
   updateScore() {
     this.gameScore.innerText = this.carrotCount - this.score;
   }
+
+  onClick = (event) => {
+    const target = event.target;
+    if (target.matches('.game_easy')) {
+      this.mode = 'easy';
+    } else if (target.matches('.game_hard')) {
+      this.mode = 'hard';
+    }
+  };
 }

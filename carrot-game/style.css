@@ -61,9 +61,9 @@ button {
   margin-top: 8px;
   font-size: 32px;
   border-radius: 20px;
-  visibility: hidden;
   user-select: none;
   cursor: auto;
+  visibility: hidden;
 }
 
 .game_score {
@@ -78,9 +78,9 @@ button {
   border-radius: 50%;
   color: white;
   border: 3px solid black;
-  visibility: hidden;
   user-select: none;
   cursor: auto;
+  visibility: hidden;
 }
 
 .pop-up {
@@ -122,4 +122,24 @@ button {
 .carrot:hover,
 .bug:hover {
   transform: scale(1.1);
+}
+
+.difficulty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(0, 30%);
+}
+
+.game_easy,
+.game_hard {
+  height: 56px;
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+.game_easy:hover,
+.game_hard:hover {
+  background-color: #00000080;
+  color: white;
 }

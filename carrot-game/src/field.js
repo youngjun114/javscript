@@ -6,7 +6,12 @@ const CARROT_SIZE = 80;
 const FIELD_WIDTH = 800;
 const FIELD_HEIGHT = 232;
 
-export default class Field {
+// Guarantees types of Item
+export const ItemType = Object.freeze({
+  carrot: 'carrot',
+  bug: 'bug',
+});
+export class Field {
   constructor(carrotCount, bugCount) {
     this.carrotCount = carrotCount;
     this.bugCount = bugCount;
@@ -30,7 +35,7 @@ export default class Field {
     const y1 = 0;
     // width - carrot image width and height
     const x2 = this.fieldRect.width - CARROT_SIZE;
-    const y2 = this.fieldRect.height - CARROT_SIZE;
+    const y2 = this.fieldRect.top - CARROT_SIZE;
 
     for (let i = 0; i < count; i++) {
       const item = document.createElement('img');
@@ -50,9 +55,9 @@ export default class Field {
     if (target.matches('.carrot')) {
       sound.playCarrot();
       target.remove();
-      this.onItemClick && this.onItemClick('carrot');
+      this.onItemClick && this.onItemClick(ItemType.carrot);
     } else if (target.matches('.bug')) {
-      this.onItemClick && this.onItemClick('bug');
+      this.onItemClick && this.onItemClick(ItemType.bug);
     }
   };
 }

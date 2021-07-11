@@ -1,7 +1,6 @@
 'use strict';
 
 export default class PopUp {
-    
   constructor() {
     this.popUp = document.querySelector('.pop-up');
     this.popUpMessage = document.querySelector('.pop-up_message');
@@ -12,9 +11,10 @@ export default class PopUp {
     });
   }
 
-  setClickListner(onClick) {
+  setStartClickListner(onClick) {
     this.onClick = onClick;
   }
+
 
   showWithText(message) {
     this.popUpMessage.innerText = message;
