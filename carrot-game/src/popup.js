@@ -9,12 +9,12 @@ export default class PopUp {
       this.onClick && this.onClick();
       this.hide();
     });
+    this.difficulty = document.querySelector('.difficulty');
   }
 
   setStartClickListner(onClick) {
     this.onClick = onClick;
   }
-
 
   showWithText(message) {
     this.popUpMessage.innerText = message;

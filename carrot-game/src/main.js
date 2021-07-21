@@ -1,6 +1,6 @@
 'use strict';
 import PopUp from './popup.js';
-import { GameBuilder, Reason } from './game.js';
+import { Game, Reason } from './game.js';
 import * as sound from './sound.js';
 
 const BUG_COUNT = 10;
@@ -12,8 +12,30 @@ const difficulty = document.querySelector('.difficulty');
 const easy = { carrotCount: 10, bugCount: 10, gameDuration: 10 };
 const hard = { carrotCount: 20, bugCount: 40, gameDuration: 20 };
 
+let setDifficulty = false;
+let mode = null;
+
+// difficulty.addEventListener('click', (e) => {
+//   let mode = null;
+//   const target = e.target;
+//   if (target.matches('.game_easy')) {
+//     mode = { ...easy };
+//     console.log('easy clicked');
+//   } else if (target.matches('.game_hard')) {
+//     mode = { ...hard };
+//     console.log('hard clicked');
+//   }
+//   difficulty.style.display = 'none';
+//   gameBtn.removeAttribute('disabled');
+// });
+
+// const game = new GameBuilder()
+//   .withGameDuration(mode.gameDuration)
+//   .withCarrotCount(mode.carrotCount)
+//   .withBugCount(mode.bugCount)
+//   .build();
+
 difficulty.addEventListener('click', (e) => {
-  let mode = null;
   const target = e.target;
   if (target.matches('.game_easy')) {
     mode = { ...easy };
@@ -24,11 +46,8 @@ difficulty.addEventListener('click', (e) => {
   }
   difficulty.style.display = 'none';
   gameBtn.removeAttribute('disabled');
-  const game = new GameBuilder()
-    .withGameDuration(mode.gameDuration)
-    .withCarrotCount(mode.carrotCount)
-    .withBugCount(mode.bugCount)
-    .build();
+
+  const game = new Game(mode);
 
   game.setGameStopListner((reason) => {
     let message;

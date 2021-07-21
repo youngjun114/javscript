@@ -34,28 +34,30 @@ export class GameBuilder {
     );
   }
 }
-class Game {
-  constructor(gameDuration, carrotCount, bugCount) {
-    this.gameDuration = gameDuration;
-    this.carrotCount = carrotCount;
-    this.bugCount = bugCount;
+export class Game {
+  constructor(mode) {
+    this.gameDuration = mode.gameDuration;
+    this.carrotCount = mode.carrotCount;
+    this.bugCount = mode.bugCount;
     this.mode = null;
     this.gameTimer = document.querySelector('.game_timer');
     this.gameScore = document.querySelector('.game_score');
     this.gameBtn = document.querySelector('.game_btn');
     this.gameHeader = document.querySelector('.game_header');
+    this.difficulty = document.querySelector('.difficulty');
 
     this.gameBtn.addEventListener('click', () => {
       if (this.started) {
         this.stop(Reason.cancel);
       } else {
         this.start();
+        console.log(this.bugCount);
       }
     });
 
     this.gameHeader.addEventListener('click', this.onClick);
 
-    this.gameField = new Field(carrotCount, bugCount);
+    this.gameField = new Field(this.carrotCount, this.bugCount);
     this.gameField.setClickListner(this.onItemClick);
 
     this.started = false;
@@ -102,7 +104,6 @@ class Game {
     this.stopTimer();
     this.hideGameButton();
     sound.stopBackground();
-
     this.onGameStop && this.onGameStop(reason);
   }
 
